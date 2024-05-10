@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const key = '7950879208d2517194d75b6e2da0bbeb'
+const key = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3OTUwODc5MjA4ZDI1MTcxOTRkNzViNmUyZGEwYmJlYiIsInN1YiI6IjY2M2QxNzU2MjY0MDg2Y2VmMTAxYjg3YyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.J1-qgB87wdrqq3h10abR5w4Xr0D_Jd55U315i6IQZ24'
 const headers = {
         Authorization: key
     }
@@ -8,21 +8,20 @@ const headers = {
 
 const BASE_URL = 'https://api.themoviedb.org/3/'
 
-async function fetchTrends(period) {
+export async function fetchTrends(period) {
     const endPoint = `trending/movie/${period}`
     const url = `${BASE_URL}${endPoint}`
     const params = {
         language: 'en-US'
     }
 
-    const data = await axios.get(url, { params, headers })
+    const data = await axios.get(url, {headers, params })
     console.log(data)
 
 }
 
-export default fetchTrends
 
-async function fetchByName(name) {
+export async function fetchByName(name) {
     const endPoint = 'search/movie'
     const url = `${BASE_URL}${endPoint}`
     const params = {
@@ -31,29 +30,44 @@ async function fetchByName(name) {
         language: 'en-US',
         page: '1'
     }
+
+    const data = await axios.get(url, {headers, params })
+    console.log(data)
+
 }
 
-async function fetchActors(id) {
+export async function fetchActors(id) {
     const endPoint = `movie/${id}/credits`
     const url = `${BASE_URL}${endPoint}`
     const params = {
         language: 'en-US'
     }
+    const data = await axios.get(url, {headers, params })
+    console.log(data)
+
 }
 
-async function fetchReviews(id) {
+export async function fetchReviews(id) {
     const endPoint = `movie/${id}/reviews`
     const url = `${BASE_URL}${endPoint}`
     const params = {
         language: 'en-US',
         page: '1',
     }
+
+    const data = await axios.get(url, {headers, params })
+    console.log(data)
+
 }
 
-async function fetchFullInfo(id) {
+export async function fetchFullInfo(id) {
     const endPoint = `movie/${id}`
     const url = `${BASE_URL}${endPoint}`
     const params = {
         language: 'en-US'
     }
+
+    const data = await axios.get(url, {headers, params })
+    console.log(data)
+
 }
