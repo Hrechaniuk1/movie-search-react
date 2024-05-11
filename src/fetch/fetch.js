@@ -15,8 +15,7 @@ export async function fetchTrends(period) {
         language: 'en-US'
     }
 
-    const data = await axios.get(url, {headers, params })
-    console.log(data)
+    return await axios.get(url, {headers, params })
 
 }
 
@@ -31,8 +30,8 @@ export async function fetchByName(name) {
         page: '1'
     }
 
-    const data = await axios.get(url, {headers, params })
-    console.log(data)
+    return await axios.get(url, {headers, params })
+
 
 }
 
@@ -42,8 +41,7 @@ export async function fetchActors(id) {
     const params = {
         language: 'en-US'
     }
-    const data = await axios.get(url, {headers, params })
-    console.log(data)
+    return await axios.get(url, {headers, params })
 
 }
 
@@ -55,8 +53,7 @@ export async function fetchReviews(id) {
         page: '1',
     }
 
-    const data = await axios.get(url, {headers, params })
-    console.log(data)
+    return await axios.get(url, {headers, params })
 
 }
 
@@ -67,7 +64,7 @@ export async function fetchFullInfo(id) {
         language: 'en-US'
     }
 
-    const data = await axios.get(url, {headers, params })
-    console.log(data)
+    return await axios.get(url, {headers, params })
+
 
 }
