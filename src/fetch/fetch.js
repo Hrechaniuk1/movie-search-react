@@ -15,7 +15,7 @@ export async function fetchTrends(period) {
         language: 'en-US'
     }
 
-    return await axios.get(url, {headers, params })
+    return await axios.get(url, { headers, params })
 
 }
 

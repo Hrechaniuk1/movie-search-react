@@ -7,7 +7,7 @@ export default function MoviePage({data, onSubmit, error}) {
     return (
         <div>
             <SearchBar onSubmit={onSubmit}></SearchBar>
-            {(data?.length > 0 && !error) ? <MovieList data={data}></MovieList> : <p>Oops</p>}
+            {(data?.length > 0 && !error) && <MovieList data={data}></MovieList>}
         </div>
     )
 }

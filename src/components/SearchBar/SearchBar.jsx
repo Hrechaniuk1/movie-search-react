@@ -4,9 +4,8 @@ import { Formik, Field, Form } from "formik"
 
 export default function SearchBar({onSubmit}) {
 
-    function submitHandler(values, actions) {
+    function submitHandler(values) {
         onSubmit(values)
-        actions.resetForm()
     }
 
     return (
