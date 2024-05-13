@@ -1,0 +1,22 @@
+.movieList {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.film {
+    width: calc((100% - 90px) / 7);
+    border: 1px solid white;
+    padding: 10px;
+    height: 150px;
+    overflow: hidden;
+    transition: all 250ms ease-in-out;
+}
+
+.film:hover {
+    box-shadow: 2px 2px 20px white;
+    scale: 1.005;
+}

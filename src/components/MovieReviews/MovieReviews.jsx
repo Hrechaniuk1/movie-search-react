@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import {fetchReviews} from '../../fetch/fetch'
 import Review from "../Review/Review";
 import Error from "../Error/Error";
+import css from './MovieReviews.module.css'
 
 
 export default function ReviewList() {
@@ -17,6 +18,7 @@ export default function ReviewList() {
 
       if (movieId) {
         try {
+          setReviews([])
           setError(false)
           const data = await fetchReviews(movieId)
           setReviews(data.data.results)
@@ -30,9 +32,11 @@ export default function ReviewList() {
 
   return (
     <>
-        {!error ? (reviews.length !== 0 ? (<ul>
+      {!error ? (reviews.length !== 0 ? (
+        <ul className={css.list}>
             {reviews.map(item => <li key={item.id}><Review data={item}></Review></li>)}
-        </ul>) : <p>No reviews yet</p>) : <Error></Error> }
+        </ul>
+      ) : <p>No reviews yet</p>) : <Error></Error>}
       </>  
     )
 }

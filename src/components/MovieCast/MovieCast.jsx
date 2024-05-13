@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import {fetchActors} from '../../fetch/fetch'
 import Actor from "../Actor/Actor";
 import Error from "../Error/Error";
+import css from './MovieCast.module.css'
 
 export default function MovieCast() {
     
@@ -16,6 +17,7 @@ export default function MovieCast() {
 async function getCast() {
       if (movieId) {
         try {
+          setFullCast([])
           setError(false)
           const data = await fetchActors(movieId)
           setFullCast(data.data.cast)
@@ -28,9 +30,11 @@ async function getCast() {
 
   return (
     <>
-        {!error ? (<ul>
+      {!error ? (
+        <ul className={css.castList}>
             {fullCast.map(item => (<li key={item.id}><Actor data={item}></Actor></li>))}
-      </ul>) : <Error></Error>}
+        </ul>
+      ) : <Error></Error>}
       </>
     )
 }

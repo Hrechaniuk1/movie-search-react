@@ -1,5 +1,5 @@
 import { Formik, Field, Form } from "formik"
-
+import css from './SearchBar.module.css'
 
 
 export default function SearchBar({onSubmit}) {
@@ -14,9 +14,9 @@ export default function SearchBar({onSubmit}) {
                 initialValues={{search: ''}}
                 onSubmit={submitHandler}
             >
-                <Form>
-                    <Field name='search'></Field>
-                <button type="submit">Search</button>
+                <Form className={css.search}>
+                    <Field className={css.field} name='search' placeholder="Tap here..."></Field>
+                <button className={css.btn} type="submit">Search</button>
                 </Form>
             </Formik>
         </div>

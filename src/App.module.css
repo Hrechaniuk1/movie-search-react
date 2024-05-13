@@ -1,25 +1,13 @@
-.search {
-    border: 1px solid white;
-    padding: 10px;
+.mainNav {
     display: flex;
     gap: 20px;
-    justify-content: center;
-}
-
-.field {
-    width: 250px;
-    height: 20px;
-    color: white;
-    background-color: transparent;
     border: 1px solid white;
-    padding: 7px;
+    padding: 5px;
+    margin-bottom: 20px;
 }
 
 .btn {
     border: 1px solid white;
-    background-color: transparent;
-    outline: transparent;
-    color: white;
     padding: 5px;
     width: 70px;
     display: flex;

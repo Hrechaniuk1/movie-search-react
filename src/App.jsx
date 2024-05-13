@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { Routes, Route, NavLink, useSearchParams } from "react-router-dom";
 
 
 import { fetchTrends, fetchByName } from './fetch/fetch'
-import HomePage from './pages/HomePage/HomePage'
-import MoviePage from "./pages/MoviesPage/MoviesPage";
-import MovieDetailsPage from "./pages/MovieDetailsPage/MovieDetailsPage";
-import MovieCast from './components/MovieCast/MovieCast'
-import MovieReviews from './components/MovieReviews/MovieReviews'
-import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import css from './App.module.css'
+
+const HomePage = lazy(() => import('./pages/HomePage/HomePage'))
+const MoviePage = lazy(() => import("./pages/MoviesPage/MoviesPage"))
+const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage/MovieDetailsPage"))
+const MovieCast = lazy(() => import('./components/MovieCast/MovieCast'))
+const MovieReviews = lazy(() => import('./components/MovieReviews/MovieReviews'))
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage/NotFoundPage"))
+const Loading = lazy(() => import('./components/Loading/Loading'))
 
 // ------------------------------------------------------------------------
 
@@ -21,23 +24,32 @@ export default function App() {
   const [period, setPeriod] = useState('day')
   const [keyWord, setKeyWord] = useState(() => {if(mainParam){return mainParam} return ''})
   const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
   
   // ----for Movie Page
 
   function submitHandler(data) {
     setKeyWord(data.search.trim())
     setSearchParams({ qwery: data.search.trim()})
-    }
+  }
+  
+  function movieClickHandler() {
+    setFilms([])
+  }
 
   useEffect(() => {
     async function getInfo() {
       if (keyWord) {
         try {
+          setLoading(true)
+            setFilms([])
             setError(false)
             const data = await fetchByName(keyWord)
-            setFilms(data.data.results)
+          setFilms(data.data.results)
+          setLoading(false)
             } catch (error) {
-            setError(true)
+          setError(true)
+          setLoading(false)
             }
           }
         }
@@ -52,6 +64,7 @@ export default function App() {
 
   useEffect(() => {
     async function getTrendFilms() {
+      setTrends([])
       const data = await fetchTrends(period)
       setTrends(data.data.results)
     }
@@ -61,20 +74,21 @@ export default function App() {
 
   return (
     <div>
-      <nav>
-        <NavLink to='/'>Home</NavLink>
-        <NavLink to='/movies'>Movies</NavLink>
+      <nav className={css.mainNav} >
+        <NavLink className={css.btn} to='/'>Home</NavLink>
+        <NavLink onClick={movieClickHandler} className={css.btn} to='/movies'>Movies</NavLink>
       </nav>
+      <Suspense fallback={<Loading></Loading>}>
       <Routes>
         <Route path='/' element={<HomePage data={trends} error={error} onChange={onChange} value={period} ></HomePage>}></Route>
-        <Route path='/movies' element={<MoviePage data={films} onSubmit={submitHandler} error={error}></MoviePage>}></Route>
+        <Route path='/movies' element={<MoviePage data={films} onSubmit={submitHandler} error={error} loading={loading}></MoviePage>}></Route>
         <Route path='/movies/:movieId' element={<MovieDetailsPage></MovieDetailsPage>}>
           <Route path='cast' element={<MovieCast></MovieCast>}></Route>
           <Route path='reviews' element={<MovieReviews></MovieReviews>}></Route>
         </Route>
         <Route path="*" element={<NotFoundPage></NotFoundPage>}></Route>
       </Routes>
-
+      </Suspense>
     </div>
   )
 }

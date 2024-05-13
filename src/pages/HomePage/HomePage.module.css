@@ -1,0 +1,26 @@
+.title {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.filter {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 30px;
+    padding: 10px;
+    border: 1px solid white;
+}
+
+.filterBox {
+    width: 90px;
+    /* color: white; */
+    /* background-color: transparent; */
+    border: 1px solid white;
+    padding: 5px;
+    text-align: center;
+    cursor: pointer;
+}
