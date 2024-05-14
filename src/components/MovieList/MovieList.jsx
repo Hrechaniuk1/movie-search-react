@@ -6,7 +6,6 @@ import Film from "../Film/Film";
 export default function MovieList ({data}) {
   
     const location = useLocation()
-    console.log(data)
 
     return (
         <ul className={css.movieList}>

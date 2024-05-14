@@ -25,6 +25,7 @@ export default function App() {
   const [keyWord, setKeyWord] = useState(() => {if(mainParam){return mainParam} return ''})
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [noFilm, setNoFilm] = useState(false)
   
   // ----for Movie Page
 
@@ -35,6 +36,8 @@ export default function App() {
   
   function movieClickHandler() {
     setFilms([])
+    setNoFilm(false)
+    localStorage.removeItem('keyword')
   }
 
   useEffect(() => {
@@ -46,7 +49,9 @@ export default function App() {
             setError(false)
             const data = await fetchByName(keyWord)
           setFilms(data.data.results)
+          data.data.results.length === 0 && setNoFilm(true)
           setLoading(false)
+          localStorage.setItem('keyword', JSON.stringify({ search: `${keyWord}`}))
             } catch (error) {
           setError(true)
           setLoading(false)
@@ -81,7 +86,7 @@ export default function App() {
       <Suspense fallback={<Loading></Loading>}>
       <Routes>
         <Route path='/' element={<HomePage data={trends} error={error} onChange={onChange} value={period} ></HomePage>}></Route>
-        <Route path='/movies' element={<MoviePage data={films} onSubmit={submitHandler} error={error} loading={loading}></MoviePage>}></Route>
+        <Route path='/movies' element={<MoviePage data={films} onSubmit={submitHandler} error={error} loading={loading} noFilm={noFilm}></MoviePage>}></Route>
         <Route path='/movies/:movieId' element={<MovieDetailsPage></MovieDetailsPage>}>
           <Route path='cast' element={<MovieCast></MovieCast>}></Route>
           <Route path='reviews' element={<MovieReviews></MovieReviews>}></Route>
