@@ -15,7 +15,7 @@ export default function SearchBar({onSubmit}) {
                 onSubmit={submitHandler}
             >
                 <Form className={css.search}>
-                    <Field className={css.field} name='search' placeholder="Tap here..."></Field>
+                    <Field className={css.field} name='search' placeholder="Tap here..." autoComplete="off"></Field>
                 <button className={css.btn} type="submit">Search</button>
                 </Form>
             </Formik>
