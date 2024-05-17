@@ -1,0 +1,22 @@
+.mainNav {
+    display: flex;
+    gap: 20px;
+    border: 1px solid white;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    border: 1px solid white;
+    padding: 5px;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 250ms ease-in-out;
+}
+
+.btn:hover {
+    scale: 1.003;
+    box-shadow: 2px 2px 20px white;
+}

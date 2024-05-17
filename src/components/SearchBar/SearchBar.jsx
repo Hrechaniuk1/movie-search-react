@@ -8,8 +8,9 @@ export default function SearchBar({onSubmit}) {
         onSubmit(values)
     }
 
-    const initialValues = (localStorage.getItem('keyword') ? JSON.parse(localStorage.getItem('keyword')) : {search: ""})
-    console.log(initialValues)
+    const initialValues = (
+        { search: "" }
+    )
 
     return (
         <div>
