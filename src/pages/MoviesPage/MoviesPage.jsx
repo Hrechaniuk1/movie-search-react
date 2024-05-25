@@ -51,7 +51,6 @@ export default function MoviePage() {
         <div>
             <SearchBar onSubmit={submitHandler}></SearchBar>
         {loading && <Loading></Loading>}
-        {/* MovieList отримує масив, просто назва пропса така */}
             {!error && <MovieList data={films}></MovieList>}
             {(noFilm) && <p className={css.noFilm}>No films with such title</p>}
         </div>

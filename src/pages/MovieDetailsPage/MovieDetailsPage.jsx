@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense, useRef } from "react"
 import { useParams, useLocation, Link, Outlet } from "react-router-dom";
 
 import Error from "../../components/Error/Error";
@@ -17,8 +17,8 @@ export default function MovieDetailsPage({ data }) {
 
 
   const location = useLocation()
-  const goBack = location.state ?? '/movies'
-
+  const goBack = useRef(location.state ?? '/movies')
+console.log(goBack)
       useEffect(() => {
     async function getFilm() {
       if (movieId) {
@@ -54,7 +54,7 @@ export default function MovieDetailsPage({ data }) {
   return (
     <>
         {!error ? (<div>
-        <Link className={css.backBtn} to={goBack}>Go back</Link>
+        <Link className={css.backBtn} to={goBack.current}>Go back</Link>
         {loading && <Loading></Loading>}
             <div className={css.filmContainer}>
           {imgPath ? <img className={css.image} src={imgUrl} alt={data?.title} /> : <p className={css.image}>Sadly - no image</p>}
@@ -68,10 +68,12 @@ export default function MovieDetailsPage({ data }) {
             </div>
         </div>
         <ul className={css.linkList}>
-          <li className={css.link}><Link className={css.linkTo} to='cast' state={location.state}>Cast</Link></li>
-          <li className={css.link}><Link className={css.linkTo} to='reviews' state={location.state}>Reviews</Link></li>
+          <li className={css.link}><Link className={css.linkTo} to='cast'>Cast</Link></li>
+          <li className={css.link}><Link className={css.linkTo} to='reviews'>Reviews</Link></li>
         </ul>
-        <Outlet />
+        <Suspense fallback={<p className={css.loading}>Loading..</p>}>
+          <Outlet />
+        </Suspense>
       </div>) : <Error></Error>}
       </>
     )
